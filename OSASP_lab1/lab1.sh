@@ -1,8 +1,7 @@
 #!/bin/bash
  
-      
-count=0
-for i in $1; do
+myfunc() {
+        for i in *; do
                 if [ -d $i ]; then
                         cd $i
                         myfunc
@@ -10,6 +9,11 @@ for i in $1; do
                 else
                         stat -c "%A %s %n" $i
                         ((count++))
-               fi
+                fi
         done
+}
+ 
+count=0
+cd $1
+myfunc
 echo Count of all files $count
