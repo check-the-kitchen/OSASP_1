@@ -1,19 +1,20 @@
 #!/bin/bash
- 
-myfunc() {
-        for i in *; do
-                if [ -d $i ]; then
-                        cd $i
-                        myfunc
-                        cd ..
-                else
-                        stat -c "%A %s %n" $i
-                        ((count++))
-                fi
-        done
-}
- 
-count=0
-cd $1
-myfunc
-echo Count of all files $count
+
+if [ $# -ne 2 ]
+then
+	echo "Script need 2 dirrectories"
+else
+	if [[ -d $1 ]]&&[[ -d $2 ]]
+	then
+		for i in $1/*
+		do
+			for j in $2/*
+			do
+				if [[ -f $i ]]&&[[ -f $j ]];then
+					cmp -s $i $j && echo "$i == $j"
+				fi
+			done
+		done
+		echo "Viewed files: $(( `find $1 -maxdepth 1 -type f | wc -l`+`find $2 -maxdepth 1 -type f | wc -l` ))"
+	fi
+fi
