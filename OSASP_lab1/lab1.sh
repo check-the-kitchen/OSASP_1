@@ -15,7 +15,7 @@ else
 				fi
 			done
 		done
-		if [[ $i ]]&&[[ $j ]]; then
+		if [ $1 == $2 ]; then
 			echo "Viewed files: $(( `find $1 -maxdepth 1 -type f | wc -l`))"
 		else
 			echo "Viewed files: $(( `find $1 -maxdepth 1 -type f | wc -l`+`find $2 -maxdepth 1 -type f | wc -l` ))"
