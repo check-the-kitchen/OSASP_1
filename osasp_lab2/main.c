@@ -14,9 +14,14 @@ int srcLen;
 FILE *outFile;
 
 void loadArgInt(char *name, char *from, ll *to) {
-	*to = strtol(from, NULL, 10);
+	char *endPtr;
+	*to = strtol(from, &endPtr, 10);
 	if (errno!=0) {
 		fprintf(stderr, "Parameter (%s) must be int.\n", name);
+		exit(1);
+		}
+	if ((from==endPtr) || (endPtr-from< strlen(from))) {
+		fprintf(stderr,"Last parameter (%s) must be int.\n", from);
 		exit(1);
 	}
 }
